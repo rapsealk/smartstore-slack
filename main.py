@@ -1,31 +1,23 @@
-import logging
-import os
-import time
-from datetime import datetime
-from pathlib import Path
+import argparse
 
 import selenium
-from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
-logging.basicConfig(level=logging.INFO)
-log = logging.getLogger(__name__)
+parser = argparse.ArgumentParser()
+parser.add_argument("--token", type=str)
+args = parser.parse_args()
 
-load_dotenv()
-
-SLACK_BOT_TOKEN = os.environ.get("SLACK_BOT_TOKEN")
-
-TITLE = "젤다의 전설 시간의 오카리나 3D"
-URL = "https://smartstore.naver.com/gameswitch/products/4690559023"
-# TITLE = "젤다의 전설 무쥬라의 가면 3D"
-# URL = "https://smartstore.naver.com/gameswitch/products/4108361209"
+# TITLE = "젤다의 전설 시간의 오카리나 3D"
+# URL = "https://smartstore.naver.com/gameswitch/products/4690559023"
+TITLE = "젤다의 전설 무쥬라의 가면 3D"
+URL = "https://smartstore.naver.com/gameswitch/products/4108361209"
 
 
-def post_slack_message(message: str) -> None:
-    client = WebClient(token=SLACK_BOT_TOKEN)
+def post_slack_message(message: str, *, token: str) -> None:
+    client = WebClient(token=token)
     try:
         response = client.chat_postMessage(
             channel="#notification",
@@ -57,14 +49,8 @@ def check_purchase_button_enabled(url: str) -> bool:
 
 
 def main():
-    has_button_enabled = False
-    while True:
-        is_button_enabled = check_purchase_button_enabled(URL)
-        if is_button_enabled and not has_button_enabled:
-            post_slack_message(f"The product({TITLE}) has been stocked! ({URL})")
-            log.info(f"[{datetime.now()}] {TITLE} has been stocked! ({URL})")
-        has_button_enabled = is_button_enabled
-        time.sleep(60)
+    if check_purchase_button_enabled(URL):
+        post_slack_message(f"The product({TITLE}) has been stocked! ({URL})", token=args.token)
 
 
 if __name__ == "__main__":
