@@ -10,10 +10,10 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--token", type=str)
 args = parser.parse_args()
 
-# TITLE = "젤다의 전설 시간의 오카리나 3D"
-# URL = "https://smartstore.naver.com/gameswitch/products/4690559023"
-TITLE = "젤다의 전설 무쥬라의 가면 3D"
-URL = "https://smartstore.naver.com/gameswitch/products/4108361209"
+TITLE = "젤다의 전설 시간의 오카리나 3D"
+URL = "https://smartstore.naver.com/gameswitch/products/4690559023"
+# TITLE = "젤다의 전설 무쥬라의 가면 3D"
+# URL = "https://smartstore.naver.com/gameswitch/products/4108361209"
 
 
 def post_slack_message(message: str, *, token: str) -> None:

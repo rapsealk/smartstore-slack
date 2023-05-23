@@ -3,7 +3,7 @@ name: cron
 on:
   schedule:
     # https://crontab.guru/
-    - cron: '0,16,30 * * * *'
+    - cron: '0,30 * * * *'
 
 jobs:
   cron:
