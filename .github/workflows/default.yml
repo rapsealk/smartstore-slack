@@ -16,4 +16,4 @@ jobs:
         with:
           python-version: "3.10.5"
       - run: pip install -r requirements.txt
-      - run: python main.py --token="${{ secrets.SLACK_BOT_TOKEN }}"
+      - run: SLACK_BOT_TOKEN=${{ secrets.SLACK_BOT_TOKEN }} python main.py

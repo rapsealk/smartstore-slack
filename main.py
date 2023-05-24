@@ -1,4 +1,4 @@
-import argparse
+import os
 
 import selenium
 from selenium import webdriver
@@ -6,9 +6,7 @@ from selenium.webdriver.common.by import By
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
-parser = argparse.ArgumentParser()
-parser.add_argument("--token", type=str)
-args = parser.parse_args()
+SLACK_BOT_TOKEN = os.environ.get("SLACK_BOT_TOKEN")
 
 TITLE = "젤다의 전설 시간의 오카리나 3D"
 URL = "https://smartstore.naver.com/gameswitch/products/4690559023"
@@ -50,7 +48,7 @@ def check_purchase_button_enabled(url: str) -> bool:
 
 def main():
     if check_purchase_button_enabled(URL):
-        post_slack_message(f"The product({TITLE}) has been stocked! ({URL})", token=args.token)
+        post_slack_message(f"The product({TITLE}) has been stocked! ({URL})", token=SLACK_BOT_TOKEN)
 
 
 if __name__ == "__main__":
