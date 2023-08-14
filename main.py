@@ -32,7 +32,7 @@ def check_purchase_button_enabled(url: str) -> bool:
     result = False
 
     options = webdriver.EdgeOptions()
-    options.add_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36 Edg/113.0.1774.50")
+    options.add_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36 Edg/115.0.1901.203")
     options.add_argument("--headless")
 
     driver = webdriver.Edge(options=options)
